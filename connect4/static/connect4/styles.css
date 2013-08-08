@@ -1,0 +1,32 @@
+.board {
+    background-color: blue;
+    box-shadow: 0.5em 0.4em 2em 0;
+    height: 37em;
+    margin: 4em auto;
+    width: 43em;
+}
+.col {
+    float: left;
+    margin-left: 1em;
+    width: 5em;
+}
+.cell {
+    border-radius: 2.5em;
+    box-shadow: 0.1em 0.1em 0.5em 0 black inset;
+    height: 5em;
+    margin-top: 1em;
+}
+.empty {
+    background-color: white;
+    transition: 400ms;
+}
+.col:hover .empty {
+    background-color: silver;
+    transition: 400ms;
+}
+.red {
+    background-color: red;
+}
+.yellow {
+    background-color: yellow;
+}
