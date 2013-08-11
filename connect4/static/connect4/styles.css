@@ -3,6 +3,7 @@
     box-shadow: 0.5em 0.4em 2em 0;
     height: 37em;
     margin: 4em auto;
+    position: relative;
     width: 43em;
 }
 .col {
@@ -16,7 +17,8 @@
     height: 5em;
     margin-top: 1em;
 }
-.empty {
+
+.disabled, .empty {
     background-color: white;
     transition: 400ms;
 }
@@ -26,7 +28,20 @@
 }
 .red {
     background-color: red;
+    color: red;
 }
 .yellow {
     background-color: yellow;
+    color: yellow;
+}
+
+.winner {
+    background-color: transparent;
+    font: 5em/1 Impact;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    text-shadow: black 0 0 0.25em;
+    top: 3.2em;
 }
