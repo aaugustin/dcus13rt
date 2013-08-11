@@ -44,29 +44,47 @@
         return false;
     };
 
+    // A Connect4UI in an instance of the board. It points to the game.
+
+    function Connect4UI ($board, $columns) {
+        this.game = new Connect4();
+        this.$board = $board;
+        this.$columns = $columns;
+    }
+
+    Connect4UI.prototype.play = function (col) {
+        var row = this.game.play(col),
+            color = colors[this.game.player],
+            $column = $(this.$columns[col]);
+
+        $($column.children()[5 - row])
+            .addClass(color)
+            .removeClass('empty');
+
+        if (this.game.winner !== null) {
+            this.$board.append(
+                '<div class="winner ' + color + '">' +
+                    color + ' wins!' +
+                '</div>');
+            this.$board.find('.empty')
+                .addClass('disabled')
+                .removeClass('empty');
+        }
+        return row;
+    };
+
     $.fn.connect4 = function () {
 
         return this.each(function () {
-            var game = new Connect4(),
-                $board = $(this),
-                $columns = $board.children();
+            var $board = $(this),
+                $columns = $board.children(),
+                connect4ui = new Connect4UI($board, $columns);
 
             function on_column_click (event) {
                 var $column = $(this),
-                    $rows = $column.children(),
                     col = $columns.index($column),
-                    row = game.play(col),
-                    color = colors[game.player];
-                $($rows[5 - row])
-                    .addClass(color)
-                    .removeClass('empty');
-                if (game.winner !== null) {
-                    $board.append('<div class="winner ' + color + '">' +
-                                  color + ' wins!' +
-                                  '</div>');
-                    $board.find('.empty')
-                        .addClass('disabled')
-                        .removeClass('empty');
+                    row = connect4ui.play(col);
+                if (connect4ui.game.winner !== null) {
                     $columns.unbind('click', on_column_click);
                 }
                 if (row === 5) {
