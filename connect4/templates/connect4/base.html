@@ -14,5 +14,8 @@
             </div>
         {% endfor %}
         </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{% static 'connect4/jquery.connect4.js' %}"></script>
+    <script>$(function () { $('.board').connect4(); });</script>
     </body>
 </html>
