@@ -1,9 +1,11 @@
+/* jslint browser: true, plusplus: true */
+
 (function ($) {
 
     "use strict";
 
-    var colors = ['yellow', 'red'];
-    var offsets = [1, 7, 8, 9];
+    var colors = ['yellow', 'red'],
+        offsets = [1, 7, 8, 9];
 
     // A Connect4 is an instance of the game.
 
@@ -11,33 +13,41 @@
     // Since JavaScript only has 32 bits integers, it's an array.
     // An extra blank row and colunm is added to allow shifting.
 
-    function Connect4 () {
+    function Connect4() {
         this.heights = [0, 0, 0, 0, 0, 0, 0];
         this.player = 0;
         this.bitfields = [new Array(56), new Array(56)];
         this.winner = null;
-    };
+    }
 
     Connect4.prototype.play = function (col) {
         var row = this.heights[col]++;
         this.player = 1 - this.player;
         this.bitfields[this.player][8 * col + row] = true;
-        if (this.player_wins()) this.winner = this.player;
+        if (this.player_wins()) {
+            this.winner = this.player;
+        }
         return row;
     };
 
     Connect4.prototype.player_wins = function () {
-        var bitfield = this.bitfields[this.player];
-        var initial, offset;
-        for (var i = 0; i < offsets.length; i++) {
+        var bitfield = this.bitfields[this.player],
+            initial,
+            offset,
+            i,
+            c,
+            r;
+        for (i = 0; i < offsets.length; i++) {
             offset = offsets[i];
-            for (var c = 0; c < 7; c++) {
-                for (var r = 0; r < 6; r++) {
+            for (c = 0; c < 7; c++) {
+                for (r = 0; r < 6; r++) {
                     initial = 8 * c + r;
-                    if (bitfield[initial + 3 * offset]
-                      & bitfield[initial + 2 * offset]
-                      & bitfield[initial + 1 * offset]
-                      & bitfield[initial]) return true;
+                    if (bitfield[initial] &&
+                            bitfield[initial + offset] &&
+                            bitfield[initial + 2 * offset] &&
+                            bitfield[initial + 3 * offset]) {
+                        return true;
+                    }
                 }
             }
         }
@@ -46,7 +56,7 @@
 
     // A Connect4UI in an instance of the board. It points to the game.
 
-    function Connect4UI ($board, $columns) {
+    function Connect4UI($board, $columns) {
         this.game = new Connect4();
         this.$board = $board;
         this.$columns = $columns;
@@ -55,17 +65,17 @@
     Connect4UI.prototype.play = function (col) {
         var row = this.game.play(col),
             color = colors[this.game.player],
-            $column = $(this.$columns[col]);
+            $column = $(this.$columns[col]),
+            $winner;
 
         $($column.children()[5 - row])
             .addClass(color)
             .removeClass('empty');
 
         if (this.game.winner !== null) {
-            this.$board.append(
-                '<div class="winner ' + color + '">' +
-                    color + ' wins!' +
-                '</div>');
+            $winner = $('<div>').addClass('winner').addClass(color);
+            $winner.text(color + ' wins!');
+            this.$board.append($winner);
             this.$board.find('.empty')
                 .addClass('disabled')
                 .removeClass('empty');
@@ -90,7 +100,7 @@
                 if (row === 5) {
                     $column.unbind('click', on_column_click);
                 }
-            };
+            }
 
             $columns.click(on_column_click);
         });
