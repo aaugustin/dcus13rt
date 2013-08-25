@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'connect4',
+    'demo',
     'django.contrib.staticfiles',
 )
 
