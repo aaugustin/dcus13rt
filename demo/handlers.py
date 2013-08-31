@@ -1,13 +1,13 @@
 import tulip
 import websockets
 
-from demo.models import get_next_message
+from demo.models import recv_message
 
 
 @tulip.coroutine
 def simple_endpoint(websocket, uri):
-    # Doesn't work! get_next_message isn't a coroutine.
-    message = yield from get_next_message()
+    # Doesn't work! recv_message isn't a coroutine.
+    message = yield from recv_message()
     websocket.send(message)
 
 
@@ -24,7 +24,7 @@ def endpoint(websocket, uri):
 
 def relay_messages():
     while True:
-        message = get_next_message()
+        message = recv_message()
         for websocket in subscribers:
             if websocket.open:
                 websocket.send(message)

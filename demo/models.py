@@ -1,15 +1,24 @@
 import redis
 
 
-def get_next_message():
-    redis_pubsub = redis.StrictRedis().pubsub()
-    redis_pubsub.subscribe('demo')
+CHANNEL = 'demo'
 
-    # Block until a message is published
-    for message in redis_pubsub.listen():
-        if message['type'] == 'message':
+
+def send_message(message):
+    client = redis.StrictRedis()
+    message = message.encode('utf-8')
+    return client.publish(CHANNEL, message)
+
+
+def recv_message():
+    client = redis.StrictRedis()
+    pubsub = client.pubsub()
+
+    pubsub.subscribe(CHANNEL)
+    for event in pubsub.listen():
+        if event['type'] == 'message':
+            message = event['data'].decode('utf-8')
             break
+    pubsub.unsubscribe()
 
-    redis_pubsub.unsubscribe()
-
-    return message['data'].decode('utf-8')
+    return message
