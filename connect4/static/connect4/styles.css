@@ -2,20 +2,20 @@
     background-color: blue;
     box-shadow: 0.5em 0.4em 2em 0;
     color: white;
-    height: 37em;
+    height: 31em;
     margin: 4em auto;
     position: relative;
-    width: 43em;
+    width: 36em;
 }
 .col {
     float: left;
     margin-left: 1em;
-    width: 5em;
+    width: 4em;
 }
 .cell {
-    border-radius: 2.5em;
+    border-radius: 2em;
     box-shadow: 0.1em 0.1em 0.5em 0 black inset;
-    height: 5em;
+    height: 4em;
     margin-top: 1em;
 }
 
@@ -40,7 +40,7 @@
     font: bold 1em/1 "Lucida Grande";
     margin: 0 auto;
     padding: 0.5em 0;
-    width: 43em;
+    width: 36em;
 }
 .message.red {
     color: white;
