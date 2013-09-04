@@ -35,6 +35,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 )
 
+try:
+    from c10ktools import models                    # use at your own risk!
+except ImportError:
+    pass
+else:
+    INSTALLED_APPS += 'c10ktools',
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
 )

@@ -1,0 +1,37 @@
+{% extends 'connect4/base.html' %}
+
+{% block content %}
+<div class="controls">
+    <p>
+        <label for="nick">Your nick:</label>
+        <input type="text" id="nick" name="nick">
+        <input type="submit" name="connect" value="Connect">
+    </p>
+    <p>
+        <label for="partner">Select a partner:</label>
+        <select id="partner" name="partner" disabled>
+            <optgroup label="Available"></optgroup>
+            <optgroup label="Playing" disabled></optgroup>
+        </select>
+        <input type="submit" name="play" value="Play" disabled>
+    </p>
+    <p class="message"></p>
+</div>
+
+{{ block.super }}
+{% endblock content %}
+
+{% block inlinejs %}
+<script>
+$(function () {
+    var options = {
+        mode: 'websockets',
+        urls: {
+            connect: '{% url 'websockets-connect' %}',
+            play: '{% url 'websockets-play' %}'
+        }
+    };
+    $('.board').connect4(options);
+});
+</script>
+{% endblock inlinejs %}

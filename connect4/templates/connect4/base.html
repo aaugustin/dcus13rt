@@ -2,9 +2,12 @@
 <html>
     <head>
         <title>Connect 4</title>
+        {% block css %}
         <link rel="stylesheet" href="{% static 'connect4/styles.css' %}">
+        {% endblock %}
     </head>
     <body>
+        {% block content %}
         <div class="board">
         {% for col in 1234567|make_list %}
             <div class="col">
@@ -14,8 +17,11 @@
             </div>
         {% endfor %}
         </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="{% static 'connect4/jquery.connect4.js' %}"></script>
-    <script>$(function () { $('.board').connect4(); });</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="{% static 'connect4/jquery.connect4.js' %}"></script>
+        {% endblock content %}
+        {% block inlinejs %}
+        <script>$(function () { $('.board').connect4(); });</script>
+        {% endblock inlinejs %}
     </body>
 </html>

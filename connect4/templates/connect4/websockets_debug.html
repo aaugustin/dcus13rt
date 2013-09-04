@@ -1,0 +1,61 @@
+{% extends 'connect4/base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="pure-g-r">
+
+<div class="pure-u-1-2">
+<table class="pure-table pure-table-striped">
+    <thead>
+        <tr>
+            <th>Nick</th>
+            <th>Game</th>
+            <th>WebSocket</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nick, player in players %}
+        <tr>
+            <td>{{ nick }}</td>
+            <td>{{ player.game|default_if_none:'' }}</td>
+            <td>{{ player.ws.state }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div class="pure-u-1-2">
+<table class="pure-table pure-table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Player 1</th>
+            <th>WebSocket 1</th>
+            <th>Player 2</th>
+            <th>WebSocket 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for game, players in games %}
+        <tr>
+            <td>{{ game }}</td>
+            <td>{{ players.0.nick }}</td>
+            <td>{{ players.0.ws.state }}</td>
+            <td>{{ players.1.nick }}</td>
+            <td>{{ players.1.ws.state }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+</div>
+
+{% endblock content %}
+
+{% block inlinejs %}{% endblock inlinejs %}

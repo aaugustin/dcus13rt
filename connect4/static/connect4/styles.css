@@ -1,6 +1,7 @@
 .board {
     background-color: blue;
     box-shadow: 0.5em 0.4em 2em 0;
+    color: white;
     height: 37em;
     margin: 4em auto;
     position: relative;
@@ -18,11 +19,11 @@
     margin-top: 1em;
 }
 
-.disabled, .empty {
+.empty {
     background-color: white;
     transition: 400ms;
 }
-.col:hover .empty {
+.board.active .col:hover .empty {
     background-color: silver;
     transition: 400ms;
 }
@@ -35,6 +36,19 @@
     color: yellow;
 }
 
+.message {
+    font: bold 1em/1 "Lucida Grande";
+    margin: 0 auto;
+    padding: 0.5em 0;
+    width: 43em;
+}
+.message.red {
+    color: white;
+}
+.message.yellow {
+    color: black;
+}
+
 .winner {
     background-color: transparent;
     font: 5em/1 Impact;
@@ -44,4 +58,24 @@
     text-align: center;
     text-shadow: black 0 0 0.25em;
     top: 3.2em;
+}
+
+.controls {
+    font: 1em/1 "Lucida Grande";
+    margin: 1em auto;
+    text-align: center;
+}
+.controls label {
+    display: inline-block;
+    text-align: right;
+    width: 8em;
+}
+.controls input, .controls select {
+    width: 8em;
+}
+.controls input[type=submit] {
+    display: inline-block;
+}
+.controls + .board {
+    margin-top: 0;
 }

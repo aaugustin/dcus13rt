@@ -7,5 +7,6 @@ from demo.urls import urlpatterns as demo_urlpatterns
 urlpatterns = sum((
     connect4_urlpatterns,
     demo_urlpatterns,
-    staticfiles_urlpatterns(),  # serve static files when running on gunicorn
+    # Serve static files when running on c10ktools' runserver or gunicorn.
+    staticfiles_urlpatterns(),
 ), [])
